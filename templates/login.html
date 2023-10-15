@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block login %}
+    <div class="container mt-6">
+      <div class="row d-flex justify-content-center">
+        <div class="login-window col-md-6">
+          <div class="card px-5 py-5" id="form1">
+            <div class="form-data" v-if="!submitted">
+
+              <div class="title mb-4">
+                  <p>Log In</p>
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Email</span>
+                  <input autocomplete="off" type="text">
+                  <!-- <div class="invalid-feedback">A valid email is required!</div> -->
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Password</span>
+                  <input autocomplete="off" type="password">
+                  <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
+              </div>
+              <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Login</button> </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      body {
+        background: #234E70;
+      }
+      .container {
+        margin-top: 6em;
+      }
+      .card {
+        background: #FBF8BE;
+        border: none;
+        height: 380px;
+      }
+      .forms-inputs {
+        position: relative
+      }
+      .forms-inputs span {
+        position: absolute;
+        top:-18px;
+        left: 10px;
+        background-color: #FBF8BE;
+        padding: 5px 5px;
+        font-size: 15px
+      }
+      .forms-inputs input {
+        height: 50px;
+        width: 100%;
+        padding: 0 10px;
+        border: 2px solid #234E70;
+        background: #FBF8BE;
+      }
+      .forms-inputs input:focus {
+        box-shadow: none;
+        outline: none;
+        border: 2px solid #000;
+      }
+      .btn {
+        height: 50px
+      }
+      .success-data {
+        display: flex;
+        flex-direction: column
+      }
+      .bxs-badge-check {
+        font-size: 90px
+      }
+      .invalid-feedback p {
+          color: pink;
+      }
+      .title p {
+          font-size: 2em;
+          text-align: center;
+      }
+    </style>
+{% endblock %}

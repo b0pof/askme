@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block signup %}
+    <div class="container mt-6">
+      <div class="row d-flex justify-content-center">
+        <div class="login-window col-md-6">
+          <div class="card px-5 py-5" id="form1">
+            <div class="form-data">
+
+              <div class="title mb-4">
+                  <p>Registration</p>
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Login</span>
+                  <input autocomplete="off" type="login">
+                  <!-- <div class="invalid-feedback">A valid email is required!</div> -->
+              </div>
+  
+              <div class="forms-inputs mb-4">
+                  <span>Email</span>
+                  <input autocomplete="off" type="email">
+                  <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Nickname</span>
+                  <input autocomplete="off" type="nickname">
+              <!-- <div class="invalid-feedback">A valid email is required!</div> -->
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Password</span>
+                  <input autocomplete="off" type="password">
+              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
+              </div>
+
+              <div class="forms-inputs mb-4">
+                  <span>Repeat password</span>
+                  <input autocomplete="off" type="repeat-password">
+              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
+              </div>
+
+              <div class="forms-inputs mb-4">
+                <span>Upload avatar</span>
+                <!-- <form for="formFile" class="form-label" >Default file input example</form> -->
+                <input class="form-control" type="file" id="formFile" enctype="multipart/form-data">
+              </div>
+
+              <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Register</button> </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <style>
+    body {
+      background: #234E70;
+    }
+    .container {
+      margin-top: 6em;
+    }
+    .card {
+      background: #FBF8BE;
+      border: none;
+      height: 680px;
+    }
+    .forms-inputs {
+      position: relative
+    }
+    .forms-inputs span {
+      position: absolute;
+      top:-18px;
+      left: 10px;
+      background-color: #FBF8BE;
+      padding: 5px 5px;
+      font-size: 15px
+    }
+    .forms-inputs input {
+      height: 50px;
+      width: 100%;
+      padding: 0 10px;
+      border: 2px solid #234E70;
+      background: #FBF8BE;
+    }
+    .forms-inputs input:focus {
+      box-shadow: none;
+      outline: none;
+      border: 2px solid #000;
+    }
+    .btn {
+      height: 50px
+    }
+    .title p {
+        font-size: 2em;
+        text-align: center;
+    }
+    input[type=file]::file-selector-button {
+      text-align: right;
+      background-color: #FBF8BE;
+      padding-top: .6em;
+      padding-left: 30%;
+      transition: 0.5s;
+      height: 120%;
+    }
+  </style>
+
+{% endblock %}
