@@ -1,9 +1,14 @@
-<html>
-<head>
-    <title>Ask</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
-    <h1>Ask page</h1>
-</body>
-</html>
+{% block ask %}
+  <div class="container">
+    <h1 style="font-size: 40px;">Ask page</h1>
+  </div>
+
+  <style>
+    .container {
+      margin-top: 120px;
+      width: 90%;
+    }
+  </style>
+{% endblock %}

@@ -22,6 +22,10 @@
                   <input autocomplete="off" type="password">
                   <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
               </div>
+              <div class="ask-for-register" style="display: flex;">
+                <p>No account?</p>
+                <a class="signup-link" href="/signup" style="margin-left: 8px; color: #234E70;">Sign up</a>
+              </div>
               <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Login</button> </div>
             
             </div>
@@ -38,9 +42,10 @@
         margin-top: 6em;
       }
       .card {
+        margin-top: 100px;
         background: #FBF8BE;
         border: none;
-        height: 380px;
+        height: 420px;
       }
       .forms-inputs {
         position: relative
@@ -54,6 +59,7 @@
         font-size: 15px
       }
       .forms-inputs input {
+        border-radius: 7px;
         height: 50px;
         width: 100%;
         padding: 0 10px;
@@ -74,9 +80,6 @@
       }
       .bxs-badge-check {
         font-size: 90px
-      }
-      .invalid-feedback p {
-          color: pink;
       }
       .title p {
           font-size: 2em;

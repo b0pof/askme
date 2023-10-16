@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import loader
 
 
 def new(request):
-    return render(request, 'base.html')
+    template = loader.get_template('index.html')
+    questions = [f"Question {i}" for i in range(1, 100)]
+
+    return HttpResponse(template.render({"questions": questions, "title": "New Questions", "loggedIn": 1, "name": "Saul Goodman"}, request))
 
 
 def hot(request):
-    return render(request, 'base.html')
+    return render(request, 'index.html')
 
 
 def tag(request):
@@ -27,7 +31,8 @@ def signup(request):
 
 
 def ask(request):
-    return render(request, 'ask.html')
+    template = loader.get_template('ask.html')
+    return HttpResponse(template.render({"loggedIn": True, "name": "Saul Goodman"}, request))
 
 
 def settings(request):
