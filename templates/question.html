@@ -1,9 +1,7 @@
-<html>
-<head>
-    <title>Question</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
-    <h1>Question page</h1>
-</body>
-</html>
+{% block ask %}
+  <div class="container">
+      <h1 style="font-size: 40px;">{{ title }}</h1>
+  </div>
+{% endblock %}
