@@ -1,11 +1,54 @@
 {% extends 'base.html' %}
-
+<!-- title, description, author, date, tags, rating-->
 {% block questions %}
 
   <div class="container">
-    <p class="list-title">{{ title }}</p>
+    <div class="title-container">
+      <p style="font-size: 30px; font-weight: 800;">{{ title }}</p>
+      {% if subtitle %}
+      <p style="font-size: 24px; font-weight: 600; margin-left: 40px;">
+        <a href="/hot">{{ subtitle }}</a>
+      </p>
+      {% endif %}
+    </div>
+    
     {% for question in questions %}
-      <p class="answer-block">{{ question }}</p>
+      <div class="question-container">
+
+        <div class="meta-info-row">
+          <p class="question-date">{{ question.creation_date }}</p>
+          <p class="question-author" style="font-weight: 700;">{{ question.author.first_name }}</p>
+        </div>
+
+        <p class="question-title">
+          <a href="/question/{{ question.id }}" style="color: black;">{{ question.title }}</a>
+        </p>
+
+        <div class="description-block">
+          <p class="question-description">{{ question.description }}</p>
+        </div>
+
+        <div class="bottom-row">
+
+          {% if question.rating <= 2 %}
+            <p class="rating-value" style="color: red;">{{ question.rating }}</p>
+          {% elif question.rating <= 3 %}
+            <p class="rating-value" style="color: orange;">{{ question.rating }}</p>
+          {% elif question.rating <= 4 %}
+            <p class="rating-value" style="color: rgb(255, 233, 69);">{{ question.rating }}</p>
+          {% else %}
+            <p class="rating-value" style="color: green;">{{ question.rating }}</p>
+          {% endif %}
+
+          <div class="tags-container">
+            <p>Tags:<span></span></p>
+            {% for tag in question.tags %}
+              <p class="tag"><b>{{ tag }}</b></p> <!-- for loop !!! -->
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     {% endfor %}
   </div>
+
 {% endblock %}

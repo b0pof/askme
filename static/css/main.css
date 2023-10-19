@@ -1,4 +1,6 @@
 body {
+    /* background-image: url("../png/background_ask.avif"); */
+    background-size: 100%;
     background-color: #eff3fb;
     font-family: "Open Sans", sans-serif;
     color: #444444;
@@ -475,6 +477,7 @@ body {
   }
   
   .blog .sidebar {
+    background-color: #eff3fb;
     border-radius: 10px;
     padding: 30px;
     margin: 0 0 60px 20px;
@@ -712,3 +715,88 @@ body {
     height: 120%;
   }
 
+  .question-container {
+    border-radius: 8px;
+    background-color: white;
+    height: 210px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .question-title {
+    color: black;
+    font-size: 22px;
+    padding-top: 15px;
+    margin: 0 30px;
+  }
+
+  .description-block {
+    justify-content: center;
+    background-color: white;
+    height: 123px;
+    width: 100%;
+  }
+
+  .question-description {
+    color: black;
+    font-size: 14px;
+    padding: 8px 30px;
+  }
+
+  .meta-info-row {
+    margin-left: 10px;
+    padding-top: 5px;
+    height: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+  }
+
+  .meta-info-row p {
+    color: black;
+    font-family: "Nunito", sans-serif;
+    font-size: 13px;
+    margin-left: 10px;
+  }
+
+  .bottom-row {
+    height: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+  }
+
+  .tag {
+    margin: 0px 5px;
+  }
+
+  .tags-container {
+    margin-right: 10px;
+    height: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    font-family: "Nunito", sans-serif;
+  }
+
+  .rating-value {
+    margin-left: 15px;
+    font-size: 16px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+  }
+
+  .title-container {
+    vertical-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    line-height: 3px;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-family: "Nunito", sans-serif;
+  }
