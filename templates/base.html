@@ -30,7 +30,9 @@
           <li>
             <form class="sidebar-item search-form" action="">
               <input type="text" placeholder="Search">
-              <button type="submit"><i class="bi bi-search"></i></button>
+              <button type="submit"><i class="bi bi-search"></i>
+                <img src="../static/png/loop.png">
+              </button>
             </form>
           </li>
 
@@ -41,7 +43,7 @@
         </ul>
         <div class="user-block">
             {% if loggedIn %}
-              <img src="../static/png/saul_bw.jpg" class="avatar" alt="Avatar">
+              <img src="../static/png/user_avatar.jpg" class="avatar" alt="Avatar">
               <div class="side-block">
                 <div class="name-block">
                   <p class="name">{{ name }}</p>
@@ -68,8 +70,6 @@
           <div class="col-lg-8 entries">
             <article class="entry entry-single">
               <div class="en">
-                {% block login %}{% endblock %}
-                {% block signup %}{% endblock %}
                 {% block questions %}{% endblock %}
                 {% block ask %}{% endblock %}
                 {% block settings %}{% endblock %}
@@ -83,7 +83,7 @@
               <div class="sidebar-item tags">
                 <ul>
                   {% for tag in tags %}
-                    <li><a href="#">{{ tag }}</a></li>
+                    <li><a href="/tag/{{ tag }}">{{ tag }}</a></li>
                   {% endfor %}
                 </ul>
               </div>
@@ -151,5 +151,12 @@
     </div>
   </footer>
 </body>
-
+  <script>
+    function increase() {
+      document.getElementById("rating").stepUp(1);
+    }
+    function decrease() {
+      document.getElementById("rating").stepDown(1);
+    }
+  </script>
 </html>

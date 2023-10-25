@@ -14,41 +14,66 @@
     
     {% for question in questions %}
       <div class="question-container">
-
         <div class="meta-info-row">
           <p class="question-date">{{ question.creation_date }}</p>
-          <p class="question-author" style="font-weight: 700;">{{ question.author.first_name }}</p>
+          <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
         </div>
 
-        <p class="question-title">
-          <a href="/question/{{ question.id }}" style="color: black;">{{ question.title }}</a>
-        </p>
+        <div class="question-content-container">
+          <div class="avatar-block">
+            <img src="../static/png/question_avatar.png" class="question-avatar" alt="Avatar">
+          </div>
+          
+          <div class="content-column">
 
-        <div class="description-block">
-          <p class="question-description">{{ question.description }}</p>
+            <div class="question-title-container">
+              <p class="question-title">
+                <a href="/question/{{ question.id }}" style="color: black;">{{ question.title }}</a>
+              </p>
+            </div>
+
+            <div class="description-block">
+              <p class="question-description">{{ question.description }}</p>
+            </div>
+          </div>
+
         </div>
 
         <div class="bottom-row">
-
-          {% if question.rating <= 2 %}
-            <p class="rating-value" style="color: red;">{{ question.rating }}</p>
-          {% elif question.rating <= 3 %}
-            <p class="rating-value" style="color: orange;">{{ question.rating }}</p>
-          {% elif question.rating <= 4 %}
-            <p class="rating-value" style="color: rgb(255, 233, 69);">{{ question.rating }}</p>
-          {% else %}
-            <p class="rating-value" style="color: green;">{{ question.rating }}</p>
+          {% if question.rating < 0 %}
+            <p class="rating-value" style="color: red;" id="rating">{{ question.rating }}</p>
+          {% elif question.rating == 0 %}
+            <p class="rating-value" style="color: grey;" id="rating">{{ question.rating }}</p>
+          {% elif question.rating > 0 %}
+            <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
           {% endif %}
+
+          <p style="width: 100px; margin-left: 60px; font-size: 15px;"><a href="/question/{{ question.id }}">answer (3)</a></p>
 
           <div class="tags-container">
             <p>Tags:<span></span></p>
             {% for tag in question.tags %}
-              <p class="tag"><b>{{ tag }}</b></p> <!-- for loop !!! -->
+              <p class="tag"><a href="/tag/{{ tag }}" style="color: #444444;"><b>{{ tag }}</b></a></p>
             {% endfor %}
           </div>
         </div>
       </div>
     {% endfor %}
+
+    <div class="pagination">
+      <ul>
+        <li class="button prev"><span><i class="fas fa-angle-left"></i> Prev</span></li>
+        <li class="dots"><span>...</span></li>
+        <li class="number"><span>3</span></li>
+        <li class="number"><span>4</span></li>
+        <li class="number"><span>5</span></li>
+        <li class="number"><span>6</span></li>
+        <li class="number"><span>7</span></li>
+        <li class="dots"><span>...</span></li>
+        <li class="button next"><span>Next <i class="fas fa-angle-right"></i> Prev</span></li>
+      </ul>
+    </div>
+
   </div>
 
 {% endblock %}

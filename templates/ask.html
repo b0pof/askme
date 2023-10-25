@@ -1,8 +1,41 @@
 {% extends 'base.html' %}
 
 {% block ask %}
-  <div class="container">
-    <h1 style="font-size: 40px;">Ask page</h1>
+<div class="container mt-6">
+
+  <div class="ask-title">
+    <p style="font-size: 30px; font-weight: 800;">{{ title }}</p>
   </div>
+
+  <div class="row d-flex justify-content-left">
+    <div class="login-window col-md-6" style="width: 700px;">
+      <div class="card px-3 py-3">
+        <div class="form-data" style="width: 100%;">
+ 
+          <div class="title-input forms-inputs mb-4">
+              <span>Title</span>
+              <input autocomplete="off" type="text" placeholder="In a nutshell">
+              <!-- <div class="invalid-feedback">A valid email is required!</div> -->
+          </div>
+
+          <div class="text-input forms-inputs mb-4" style="height: 200px;">
+              <span>Text</span>
+              <textarea autocomplete="off" type="text" style="height: 100%;" placeholder="Describe in details"></textarea>
+              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
+          </div>
+
+          <div class="tags-input forms-inputs mb-4">
+            <span>Tags</span>
+            <input autocomplete="off" type="text" placeholder="List tags by comma">
+            <!-- <div class="invalid-feedback">A valid email is required!</div> -->
+          </div>
+
+          <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Ask!</button> </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
