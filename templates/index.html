@@ -7,7 +7,7 @@
       <p style="font-size: 30px; font-weight: 800;">{{ title }}</p>
       {% if subtitle %}
       <p style="font-size: 24px; font-weight: 600; margin-left: 40px;">
-        <a href="/hot">{{ subtitle }}</a>
+        <a href="{% url 'top-questions' %}">{{ subtitle }}</a>
       </p>
       {% endif %}
     </div>
@@ -15,7 +15,7 @@
     {% for question in questions %}
       <div class="question-container">
         <div class="meta-info-row">
-          <p class="question-date">{{ question.creation_date }}</p>
+          <p class="question-date">{{ question.creation_date|date:"d.m.Y" }}</p>
           <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
         </div>
 
@@ -23,17 +23,17 @@
           <div class="avatar-block">
             <img src="../static/png/question_avatar.png" class="question-avatar" alt="Avatar">
           </div>
-          
+
           <div class="content-column">
 
             <div class="question-title-container">
               <p class="question-title">
-                <a href="/question/{{ question.id }}" style="color: black;">{{ question.title }}</a>
+                <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars:50 }}</a>
               </p>
             </div>
 
             <div class="description-block">
-              <p class="question-description">{{ question.description }}</p>
+              <p class="question-description">{{ question.description|truncatechars:490 }}</p>
             </div>
           </div>
 
@@ -48,12 +48,12 @@
             <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
           {% endif %}
 
-          <p style="width: 100px; margin-left: 60px; font-size: 15px;"><a href="/question/{{ question.id }}">answer (3)</a></p>
+          <p style="width: 100px; margin-left: 60px; font-size: 15px;"><a href="{% url 'question-info' question.id %}">answer (3)</a></p>
 
           <div class="tags-container">
             <p>Tags:<span></span></p>
             {% for tag in question.tags %}
-              <p class="tag"><a href="/tag/{{ tag }}" style="color: #444444;"><b>{{ tag }}</b></a></p>
+              <p class="tag"><a href="{% url 'tag-search' tag %}" style="color: #444444;"><b>{{ tag }}</b></a></p>
             {% endfor %}
           </div>
         </div>
