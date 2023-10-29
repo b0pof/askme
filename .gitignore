@@ -1,4 +1,5 @@
 env
-askme/__pycache__
+__pycache__
 askme/__init__.py
 .FlexStart
+local_settings.py
