@@ -40,23 +40,24 @@
               <div class="title mb-4">
                   <p>Log In</p>
               </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Email</span>
-                  <input autocomplete="off" type="text" minlength="8">
-                  <!-- <div class="invalid-feedback">A valid email is required!</div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Password</span>
-                  <input autocomplete="off" type="password" minlength="8">
-                  <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
-              </div>
-              <div class="ask-for-register" style="display: flex;">
-                <p>No account?</p>
-                <a class="signup-link" href="/signup" style="margin-left: 8px; color: #234E70;">Sign up</a>
-              </div>
-              <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Login</button> </div>
+
+              <form method="POST">
+                <div class="forms-inputs mb-4">
+                    <span>Email</span>
+                    <input type="email" id="email" name="email" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                    <span>Password</span>
+                    <input type="password" id="password" name="password" minlength="8" required>
+                </div>
+
+                <div class="ask-for-register" style="display: flex;">
+                  <p>No account?</p>
+                  <a class="signup-link" href="/signup" style="margin-left: 8px; color: #234E70;">Sign up</a>
+                </div>
+                <div class="mb-3"> <input class="btn btn-dark w-100" type="submit" value="Login"></input> </div>
+              </form>
             
             </div>
           </div>

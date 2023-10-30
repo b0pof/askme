@@ -12,25 +12,24 @@
       <div class="card px-3 py-3">
         <div class="form-data" style="width: 100%;">
 
-          <div class="title-input forms-inputs mb-4">
-              <span>Title</span>
-              <input autocomplete="off" type="text" placeholder="In a nutshell" minlength="3" maxlength="50">
-              <!-- <div class="invalid-feedback">A valid email is required!</div> -->
-          </div>
+          <form method="POST">
+            <div class="title-input forms-inputs mb-4">
+                <span>Title</span>
+                <input autocomplete="off" type="text" placeholder="In a nutshell" minlength="3" maxlength="50" required>
+            </div>
 
-          <div class="text-input forms-inputs mb-4" style="height: 200px;">
-              <span>Text</span>
-              <textarea autocomplete="off" type="text" style="height: 100%;" placeholder="Describe in details" minlength="3" maxlength="490"></textarea>
-              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
-          </div>
+            <div class="text-input forms-inputs mb-4" style="height: 200px;">
+                <span>Text</span>
+                <textarea autocomplete="off" type="text" style="height: 100%;" placeholder="Describe in details" maxlength="490"></textarea>
+            </div>
 
-          <div class="tags-input forms-inputs mb-4">
-            <span>Tags</span>
-            <input autocomplete="off" type="text" placeholder="List tags by comma" minlength="1" maxlength="50">
-            <!-- <div class="invalid-feedback">A valid email is required!</div> -->
-          </div>
+            <div class="tags-input forms-inputs mb-4">
+              <span>Tags</span>
+              <input autocomplete="off" type="text" placeholder="List tags by comma" maxlength="50">
+            </div>
 
-          <div class="mb-3"><button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Ask!</button></div>
+            <div class="mb-3"><input value="Ask!" type="submit" class="btn btn-dark w-100"></input></div>
+          </form>
         
         </div>
       </div>

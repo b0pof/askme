@@ -40,49 +40,45 @@
               <div class="title mb-4">
                   <p>Registration</p>
               </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Login</span>
-                  <input autocomplete="off" type="login" minlength="10">
-                  <!-- <div class="invalid-feedback">A valid email is required!</div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Email</span>
-                  <input autocomplete="off" type="email" minlength="10">
-                  <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Nickname</span>
-                  <input autocomplete="off" type="nickname" minlength="1" maxlength="15">
-              <!-- <div class="invalid-feedback">A valid email is required!</div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Password</span>
-                  <input autocomplete="off" type="password">
-              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                  <span>Repeat password</span>
-                  <input autocomplete="off" type="password">
-              <!-- <div class="invalid-feedback"><p>Password must be 8 character!</p></div> -->
-              </div>
-  
-              <div class="forms-inputs mb-4">
-                <span>Upload avatar</span>
-                <!-- <form for="formFile" class="form-label" >Default file input example</form> -->
-                <input class="form-control" type="file" id="formFile" enctype="multipart/form-data">
-              </div>
-  
-              <div class="ask-for-login" style="display: flex;">
-                <p>Already have an account?</p>
-                <a class="login-link" href="/login" style="margin-left: 8px; color: #234E70;">Log in</a>
-              </div>
-  
-              <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Register</button> </div>
+              
+              <form method="POST">
+                <div class="forms-inputs mb-4">
+                    <span>Login</span>
+                    <input autocomplete="off" type="text" name="login" id="login" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                    <span>Email</span>
+                    <input autocomplete="off" type="email" name="email" id="email" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                    <span>Nickname</span>
+                    <input autocomplete="off" type="text" name="nickname" id="nickname" maxlength="25" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                    <span>Password</span>
+                    <input autocomplete="off" type="password" name="password" id="password" minlength="8" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                    <span>Repeat password</span>
+                    <input autocomplete="off" type="password" name="password" id="password" minlength="8" required>
+                </div>
+    
+                <div class="forms-inputs mb-4">
+                  <span>Upload avatar</span>
+                  <input class="form-control" type="file" id="formFile" enctype="multipart/form-data">
+                </div>
+    
+                <div class="ask-for-login" style="display: flex;">
+                  <p>Already have an account?</p>
+                  <a class="login-link" href="/login" style="margin-left: 8px; color: #234E70;">Log in</a>
+                </div>
+    
+                <div class="mb-3"> <input type="submit" value="Register" class="btn btn-dark w-100"></input> </div>
+              </form>
   
             </div>
           </div>
