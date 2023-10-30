@@ -17,5 +17,5 @@ class Answer(models.Model):
     description = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField()
-    isCorrect = models.BooleanField()
+    is_correct = models.BooleanField()
     rating = models.FloatField()

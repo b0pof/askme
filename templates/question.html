@@ -2,8 +2,60 @@
 
 {% block ask %}
 
-  <div class="container">
-      <h1 style="font-size: 40px;">{{ title }}</h1>
+<div class="container" style="height: 100%;">
+  <div class="question-container" style="height: 100%;">
+    <div class="meta-info-row">
+      <p class="question-date">{{ question.creation_date }}</p>
+      <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
+    </div>
+
+    <div class="question-content-container" style="height: 100%;">
+      <div class="avatar-block">
+        <img src="../static/png/question_avatar.png" class="question-avatar" alt="Avatar">
+      </div>
+
+      <div class="content-column" style="height: 100%;">
+
+        <div class="question-title-container">
+          <p class="question-title">
+            <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars:50 }}</a>
+          </p>
+        </div>
+
+        <div class="description-block" style="height: 100%;">
+          <p class="question-description">{{ question.description }}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bottom-row" style="padding-bottom: 30px;">
+      {% if question.rating < 0 %}
+        <p class="rating-value" style="color: red;" id="rating">{{ question.rating }}</p>
+      {% elif question.rating == 0 %}
+        <p class="rating-value" style="color: grey;" id="rating">{{ question.rating }}</p>
+      {% elif question.rating > 0 %}
+        <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
+      {% endif %}
+
+      <div class="tags-container">
+        <p>Tags:<span></span></p>
+        {% for tag in question.tags %}
+          <p class="tag"><a href="{% url 'tag-search' tag %}" style="color: #444444;"><b>{{ tag }}</b></a></p>
+        {% endfor %}
+      </div>
+    </div>
   </div>
+
+  <div class="answer-input">
+    <!-- TO-DO -->
+  </div>
+
+  <p style="font-size: 30px; font-weight: 800;">Answers: {{ answers|length }}</p>
+
+  {% for answer in answers %}
+    <div style="background-color: antiquewhite; height: 100px; width: 100%; margin-bottom: 30px;"></div>
+  {% endfor %}
+</div>
 
 {% endblock %}

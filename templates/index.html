@@ -15,7 +15,7 @@
     {% for question in questions %}
       <div class="question-container">
         <div class="meta-info-row">
-          <p class="question-date">{{ question.creation_date|date:"d.m.Y" }}</p>
+          <p class="question-date">{{ question.creation_date }}</p>
           <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
         </div>
 
@@ -28,12 +28,12 @@
 
             <div class="question-title-container">
               <p class="question-title">
-                <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars:50 }}</a>
+                <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars_html:50|safe }}</a>
               </p>
             </div>
 
             <div class="description-block">
-              <p class="question-description">{{ question.description|truncatechars:490 }}</p>
+              <p class="question-description">{{ question.description|truncatechars_html:250|safe }}</p>
             </div>
           </div>
 

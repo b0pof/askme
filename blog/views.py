@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from blog.models import Question
+from blog.models import Question, Answer
 from django.contrib.auth.models import User
 from util.pagination.pagination import paginate
 import random
@@ -20,11 +20,11 @@ def make_question(amount: int) -> [Question]:
         q = Question()
         q.id = 347923 + i
         q.title = "How to cook chicken properly?"
-        description = "Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy? Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy?"
-        q.description = " ".join(description.split()[:50]) + "..."
+        description = "Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy? Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy? Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy? Hi. I'm wondering why that Los Pollos chicken is that tasty. I wanna cook it at home but have some doubts about the receipt. Is there a way to make it so crispy?"
+        q.description = description
         q.author = User()
-        q.author.username = "Flynn"
-        q.creation_date = "08.10.2009"
+        q.author.username = random.choice(["Flynn", "Walter Hartwell White Jr.", "Walt Jr."]) 
+        q.creation_date = "%02d.%02d.%04d" % (random.randint(1, 28), random.randint(1, 12), random.randint(2007, 2023))
 
         q.tags = list()
         for _ in range(2):
@@ -34,6 +34,25 @@ def make_question(amount: int) -> [Question]:
         questions.append(q)
 
     return questions
+
+
+def make_anwers(amount: int) -> [Answer]:
+    answers = list()
+
+    for i in range(amount):
+        a = Answer()
+        a.id = 576 + i
+        description = "First, Gus gets deliveries every day, so the food is always fresh. Second, Gus is almost always on the premises so the workers are on the ball. three, Gus is actually a good boss. He hires ambitious people to manage, makes sure people work the shifts they want, and is generally helpful."
+        a.description = description
+        a.author = User()
+        a.author.username = random.choice(["Sam", "Bob", "Thomas", "Joseph", "Michael", "Charles"]) 
+        a.creation_date = "%02d.%02d.%04d" % (random.randint(1, 28), random.randint(1, 12), random.randint(2007, 2023))
+        a.is_correct = random.randint(0, 1)
+        a.rating = round(random.randint(-20, 20))
+
+        answers.append(a)
+
+    return answers
 
 
 def new(request):
@@ -103,10 +122,14 @@ def tag(request, tag):
 
 def question(request, id):
     template = loader.get_template('question.html')
+    question = make_question(1)[0]
+    answers = make_anwers(31)
 
     return HttpResponse(
         template.render(
             {
+                "question": question,
+                "answers": answers,
                 "title": f"Question {id}",
                 "tags": POPULAR_TAGS,
                 "members": MEMBERS,
