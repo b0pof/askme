@@ -7,18 +7,6 @@ from util.pagination.pagination import paginate
 import random
 
 
-"""
-TO-DO:
-1) HTML CSS:
- - ask
- - settings
- - question
- - search bar
-
-2) functions:
- - tag searching
-"""
-
 # Mocks
 POPULAR_TAGS = [tag for tag in "Cooking,Chicken,Pollos,Fring,Albuquerque,Laundry,Blue,Tight".split(",")]
 MEMBERS = ["Gene Takovic", "Kimberly Wexler", "Lalo Salamanka", "Gustavo Fring", "Mike Hermantraut", "Victor"]
@@ -50,7 +38,7 @@ def make_question(amount: int) -> [Question]:
 
 def new(request):
     template = loader.get_template('index.html')
-    questions = make_question(50)
+    questions = make_question(54)
     
     title = "New Questions"
     subtitle = "Hot Questions"
