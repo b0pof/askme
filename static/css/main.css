@@ -111,6 +111,7 @@ body {
   
   .navbar li {
     position: relative;
+    margin-right: 50px;
   }
   
   .navbar a,
@@ -691,53 +692,20 @@ body {
     justify-content: center;
   }
 
-  .pagination ul {
-    display: flex;
-    background: #fff;
-    padding: 8px;
-    border-radius: 50px;
+  .pagination .btn {
+    color: #013289;
+    background-color: #eff3fb;
+    border: 2px solid #013289;
+    margin: 3px;
   }
 
-  .pagination ul li {
-    list-style: none;
-    line-height: 45px;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.3s;
+  .pagination .btn:hover {
+    border: 2px solid white;
+    background-color: #6f7cf6;
   }
 
-  .pagination ul li.number {
-    border-radius: 50%;
-    height: 45px;
-    width: 45px;
-  }
-
-  .pagination ul li.dots {
-    height: 45px;
-    width: 30px;
-    font-size: 22px;
-    cursor: default;
-  }
-
-  .pagination ul li.button {
-    color: white;
-    background: #4154f1;
-    padding: 0 20px;
-  }
-
-  .pagination ul li.number:hover {
-    background: #5465f2;
-    padding: 0 20px;
-  }
-
-  .pagination ul li.prev {
-    border-radius: 25px 5px 5px 25px;
-  }
-
-  .pagination ul li.next {
-    border-radius: 5px 25px 25px 5px;
+  .pagination .btn:focus {
+    background-color: #a9b1f6;
   }
 
   .tags-input input::placeholder,
