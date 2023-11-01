@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-{% block ask %}
+{% block question %}
 
 <div class="container" style="height: 100%;">
+  
   <div class="question-container" style="height: 100%;">
     <div class="meta-info-row">
       <p class="question-date">{{ question.creation_date }}</p>
@@ -30,6 +31,9 @@
     </div>
 
     <div class="bottom-row" style="padding-bottom: 30px;">
+      <button class="rate-button" id="like">
+        <img src="../static/png/up.png" height="100%"; width="100%">
+      </button>
       {% if question.rating < 0 %}
         <p class="rating-value" style="color: red;" id="rating">{{ question.rating }}</p>
       {% elif question.rating == 0 %}
@@ -37,6 +41,9 @@
       {% elif question.rating > 0 %}
         <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
       {% endif %}
+      <button class="rate-button" id="dislike">
+        <img src="../static/png/down.png" height="100%"; width="100%">
+      </button>
 
       <div class="tags-container">
         <p>Tags:<span></span></p>
@@ -47,15 +54,86 @@
     </div>
   </div>
 
-  <div class="answer-input">
-    <!-- TO-DO -->
+  <div class="text-input forms-inputs mb-4" style="height: 100px;">
+      <textarea class="answer-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
   </div>
 
   <p style="font-size: 30px; font-weight: 800;">Answers: {{ answers|length }}</p>
 
   {% for answer in answers %}
-    <div style="background-color: antiquewhite; height: 100px; width: 100%; margin-bottom: 30px;"></div>
+    <div class="answer-container">
+      <div class="meta-info-row">
+        <p class="answer-date">{{ answer.creation_date }}</p>
+        <p class="answer-author" style="font-weight: 700;">{{ answer.author.username }}</p>
+      </div>
+
+      <div class="answer-content-container">
+        <div class="avatar-block">
+          <img src="../static/png/los_pollos_crew.png" class="answer-avatar" alt="Avatar">
+        </div>
+
+        <div class="content-column answer-description-block">
+            <p class="answer-description">{{ answer.description }}</p>
+        </div>
+
+      </div>
+
+      <div class="bottom-row answer-bottom-row">
+        <button class="rate-button" id="like">
+          <img src="../static/png/up.png" height="100%"; width="100%">
+        </button>
+        {% if answer.rating < 0 %}
+          <p class="rating-value" style="color: red;" id="rating">{{ answer.rating }}</p>
+        {% elif answer.rating == 0 %}
+          <p class="rating-value" style="color: grey;" id="rating">{{ answer.rating }}</p>
+        {% elif answer.rating > 0 %}
+          <p class="rating-value" style="color: green;" id="rating">{{ answer.rating }}</p>
+        {% endif %}
+        <button class="rate-button" id="dislike">
+          <img src="../static/png/down.png" height="100%"; width="100%">
+        </button>
+
+        <div class="correct-flag">
+          {% if answer.is_correct %}
+            <input class="styled-checkbox" id="correct-checkbox" type="checkbox" value="correct" checked>
+          {% else %}
+            <input class="styled-checkbox" id="correct-checkbox" type="checkbox" value="correct">
+          {% endif %}
+          <label style="font-size: 16px;">Correct !</label>
+        </div>
+      </div>
+
+    </div>
   {% endfor %}
+
+  <!-- <script>
+    const like_button = document
+      .querySelector('#like')
+      .addEventListener('click', like);
+
+    // console.log(like_button.target.textContent);
+    // console.log("no");
+    
+    // const dislike_button = document
+    //   .querySelector('#dislike')
+    //   .addEventListener('click', like);
+
+    // let likes_counter = document.querySelector('#rating');
+
+    // let likes = likes_counter.textContent;
+
+    function like(e) {
+      if (e.target.textContent === 'Dope') {
+        // likes++;
+        // likes_counter.textContent = likes;
+        console.log("Liked");
+      } else {
+        likes--;
+        likes_counter.textContent = likes;
+        console.log("DisLiked");
+      }
+    }
+  </script> -->
 </div>
 
 {% endblock %}

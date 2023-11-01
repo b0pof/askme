@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block questions %}
+{% block questions-list %}
 
   <div class="container">
     <div class="title-container">
@@ -13,51 +13,55 @@
     </div>
     
     {% for question in questions %}
-      <div class="question-container">
-        <div class="meta-info-row">
-          <p class="question-date">{{ question.creation_date }}</p>
-          <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
+    <div class="question-container" style="height: 100%;">
+      <div class="meta-info-row">
+        <p class="question-date">{{ question.creation_date }}</p>
+        <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
+      </div>
+  
+      <div class="question-content-container" style="height: 100%;">
+        <div class="avatar-block">
+          <img src="../static/png/question_avatar.png" class="question-avatar" alt="Avatar">
         </div>
-
-        <div class="question-content-container">
-          <div class="avatar-block">
-            <img src="../static/png/question_avatar.png" class="question-avatar" alt="Avatar">
+  
+        <div class="content-column" style="height: 100%;">
+  
+          <div class="question-title-container">
+            <p class="question-title">
+              <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars:50 }}</a>
+            </p>
           </div>
-
-          <div class="content-column">
-
-            <div class="question-title-container">
-              <p class="question-title">
-                <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars_html:50|safe }}</a>
-              </p>
-            </div>
-
-            <div class="description-block">
-              <p class="question-description">{{ question.description|truncatechars_html:250|safe }}</p>
-            </div>
+  
+          <div class="description-block" style="height: 100%;">
+            <p class="question-description">{{ question.description }}</p>
           </div>
-
         </div>
-
-        <div class="bottom-row">
-          {% if question.rating < 0 %}
-            <p class="rating-value" style="color: red;" id="rating">{{ question.rating }}</p>
-          {% elif question.rating == 0 %}
-            <p class="rating-value" style="color: grey;" id="rating">{{ question.rating }}</p>
-          {% elif question.rating > 0 %}
-            <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
-          {% endif %}
-
-          <p style="width: 100px; margin-left: 60px; font-size: 15px;"><a href="{% url 'question-info' question.id %}">answer (3)</a></p>
-
-          <div class="tags-container">
-            <p>Tags:<span></span></p>
-            {% for tag in question.tags %}
-              <p class="tag"><a href="{% url 'tag-search' tag %}" style="color: #444444;"><b>{{ tag }}</b></a></p>
-            {% endfor %}
-          </div>
+  
+      </div>
+  
+      <div class="bottom-row" style="padding-bottom: 30px;">
+        <button class="rate-button" id="like">
+          <img src="../static/png/up.png" height="100%"; width="100%">
+        </button>
+        {% if question.rating < 0 %}
+          <p class="rating-value" style="color: red;" id="rating">{{ question.rating }}</p>
+        {% elif question.rating == 0 %}
+          <p class="rating-value" style="color: grey;" id="rating">{{ question.rating }}</p>
+        {% elif question.rating > 0 %}
+          <p class="rating-value" style="color: green;" id="rating">{{ question.rating }}</p>
+        {% endif %}
+        <button class="rate-button" id="dislike">
+          <img src="../static/png/down.png" height="100%"; width="100%">
+        </button>
+  
+        <div class="tags-container">
+          <p>Tags:<span></span></p>
+          {% for tag in question.tags %}
+            <p class="tag"><a href="{% url 'tag-search' tag %}" style="color: #444444;"><b>{{ tag }}</b></a></p>
+          {% endfor %}
         </div>
       </div>
+    </div>
     {% endfor %}
 
     <div class="pagination">

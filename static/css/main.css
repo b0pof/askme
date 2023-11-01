@@ -1,5 +1,4 @@
 body {
-    /* background-image: url("../png/background_ask.avif"); */
     background-size: 100%;
     background-color: #eff3fb;
     font-family: "Open Sans", sans-serif;
@@ -174,7 +173,6 @@ body {
   .entries {
     background-color: #eff3fb;
     border-radius: 10px;
-    /* background-image: url("../png/back.png"); */
     background-repeat: repeat;
     padding: 0;
   }
@@ -597,12 +595,22 @@ body {
   }
 
   .bottom-row {
-    height: 15px;
+    position: relative;
+    height: 30px;
     width: 100%;
     display: flex;
     justify-content: flex;
     font-size: 14px;
     font-family: "Nunito", sans-serif;
+  }
+
+  .rating-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .answer-bottom-row {
+    margin-top: 10px;
   }
 
   .tag {
@@ -620,7 +628,10 @@ body {
   }
 
   .rating-value {
-    margin-left: 15px;
+    text-align: center;
+    margin: 0;
+    width: 30px;
+    height: 30px;
     font-size: 16px;
     font-family: "Nunito", sans-serif;
     font-weight: 800;
@@ -647,7 +658,6 @@ body {
   }
 
   .content-column {
-    /* position: relative; */
     margin-left: 10px;
     padding-top: 10px;
     height: 240px;
@@ -726,3 +736,141 @@ body {
     border: 2px solid #234E70;
     background: #eff3fb;
   }
+
+  .answer-avatar {
+    border-radius: 20%;
+    max-width: 50px;
+    min-width: 50px;
+    max-height: 50px;
+    min-height: 50px;
+  }
+
+  .answer-container {
+    border-radius: 8px;
+    background-color: white;
+    min-height: 100px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .answer-title {
+    color: black;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .answer-description-block {
+    justify-content: center;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+  }
+
+  .answer-description {
+    height: 100%;
+    color: black;
+    font-size: 16px;
+    padding: 10px 30px 10px 20px;
+  }
+
+  .answer-content-container {
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .correct-flag {
+    position: relative;
+    margin-left: 50px;
+  }
+
+  .styled-checkbox {
+    position: absolute;
+    opacity: 0;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+  
+    & + label {
+      /* cursor: pointer; */
+      padding: 0;
+    }
+  
+    & + label:before {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+      content: '';
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-top;
+      width: 20px;
+      height: 20px;
+      background: white;
+    }
+  
+    &:hover + label:before {
+      background: #717ff5;
+    }
+
+    &:checked + label:before {
+      background: #717ff5;
+    }
+    
+    &:disabled + label {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+      color: #b8b8b8;
+      cursor: auto;
+    }
+  
+    &:disabled + label:before {
+      box-shadow: 
+        2px 0 0 white,
+        4px 0 0 white,
+        4px -2px 0 white,
+        4px -4px 0 white,
+        4px -6px 0 white,
+        4px -8px 0 white;
+    }
+  
+    &:checked + label:after {
+      position: absolute;
+      content: '';
+      left: 5px;
+      top: 9px;
+      background: white;
+      width: 2px;
+      height: 2px;
+      box-shadow: 
+        2px 0 0 white,
+        4px 0 0 white,
+        4px -2px 0 white,
+        4px -4px 0 white,
+        4px -6px 0 white,
+        4px -8px 0 white;
+      transform: rotate(45deg);
+    }
+  }
+
+  .rate-button {
+    background-color: white;
+    /* border: solid black 1px; */
+    /* border-radius: 5px; */
+    border: none;
+    color: white;
+    padding: 0 7px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* #like {
+    background-color: rgba(144, 238, 144, 0.472);
+  }
+
+  #dislike {
+    background-color: rgba(240, 128, 128, 0.721);
+  } */
+  
