@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.template import loader
 from util.pagination.pagination import paginate
 from util.mock.mock import *
@@ -8,6 +8,11 @@ from util.mock.mock import *
 def new(request):
     template = loader.get_template('index.html')
     questions = make_question(54)
+
+    try:
+        pages = paginate(request, questions)
+    except Exception as ex:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
     
     title = "New Questions"
     subtitle = "Hot Questions"
@@ -15,7 +20,7 @@ def new(request):
     return HttpResponse(
         template.render(
             {
-                "questions": paginate(request, questions),
+                "questions": pages,
                 "tags": POPULAR_TAGS,
                 "title": title,
                 "subtitle": subtitle,
@@ -32,12 +37,20 @@ def hot(request):
     template = loader.get_template('index.html')
     questions = make_question(50)
     hot_questions = [question for question in questions if float(question.rating) > 4]
+
+    try:
+        pages = paginate(request, hot_questions)
+    except Exception:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
+    
+    print("pages are:", pages)
+
     title = "Hot Questions"
 
     return HttpResponse(
         template.render(
             {
-                "questions": paginate(request, hot_questions), 
+                "questions": pages, 
                 "tags": POPULAR_TAGS, 
                 "title": title,
                 "members": MEMBERS, 
@@ -52,13 +65,19 @@ def hot(request):
 def tag(request, tag):
     template = loader.get_template('index.html')
     questions = make_question(50)
+
     matched_questions = [question for question in questions if tag in question.tags]
     title = f'Tag: {tag}'
 
+    try:
+        pages = paginate(request, matched_questions)
+    except Exception:
+        return HttpResponseNotFound("<h1>Page not found</h1>")
+    
     return HttpResponse(
         template.render(
             {
-                "questions": paginate(request, matched_questions),
+                "questions": pages,
                 "tags": POPULAR_TAGS,
                 "title": title,
                 "members": MEMBERS,
