@@ -2,6 +2,21 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
 
+# User:
+#  - email
+#  - nickname
+#  - password
+#  - avatar
+#  - date
+#  - rating
+class User(AbstractBaseUser):
+    email = models.CharField(max_length=128)
+    nickname = models.CharField(max_length=64)
+    password = models.CharField(max_length=128)
+    date = models.DateField()
+    rating = models.FloatField()
+
+
 # Question:
 #  - title
 #  - description
@@ -32,20 +47,6 @@ class Answer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     creation_date = models.DateField()
     is_correct = models.BooleanField()
-    rating = models.FloatField()
-
-# User:
-#  - email
-#  - nickname
-#  - password
-#  - avatar
-#  - date
-#  - rating
-class User(AbstractBaseUser):
-    email = models.CharField(max_length=128)
-    nickname = models.CharField(max_length=64)
-    password = models.CharField(max_length=128)
-    date = models.DateField()
     rating = models.FloatField()
 
 
