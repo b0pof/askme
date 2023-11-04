@@ -1,7 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User
-# Create your models here.
+from django.contrib.auth.models import AbstractBaseUser
 
+
+# Question:
+#  - title
+#  - description
+#  - author
+#  - date
+#  - tags
+#  - rating
 class Question(models.Model):
     id = models.PositiveBigIntegerField(primary_key=True)
     title = models.CharField(max_length=30)
@@ -12,6 +19,13 @@ class Question(models.Model):
     rating = models.IntegerField()
 
 
+# Answer:
+#  - description
+#  - author
+#  - date 
+#  - is_correct
+#  - rating
+#  - question
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     description = models.TextField()
@@ -19,3 +33,24 @@ class Answer(models.Model):
     creation_date = models.DateField()
     is_correct = models.BooleanField()
     rating = models.FloatField()
+
+# User:
+#  - email
+#  - nickname
+#  - password
+#  - avatar
+#  - date
+#  - rating
+class User(AbstractBaseUser):
+    email = models.CharField(max_length=128)
+    nickname = models.CharField(max_length=64)
+    password = models.CharField(max_length=128)
+    date = models.DateField()
+    rating = models.FloatField()
+
+
+# Tag:
+#  - word
+class Tag():
+    word = models.CharField(max_length=32)
+
