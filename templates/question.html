@@ -7,7 +7,7 @@
   <div class="question-container" style="height: 100%;">
     <div class="meta-info-row">
       <p class="question-date">{{ question.creation_date }}</p>
-      <p class="question-author" style="font-weight: 700;">{{ question.author.username }}</p>
+      <p class="question-author" style="font-weight: 700;">{{ question.author }}</p>
     </div>
 
     <div class="question-content-container" style="height: 100%;">
@@ -17,9 +17,9 @@
 
       <div class="content-column" style="height: 100%;">
 
-        <div class="question-title-container">
+        <div class="question-title-container" style="height: 100%;">
           <p class="question-title">
-            <a href="{% url 'question-info' question.id %}" style="color: black;">{{ question.title|truncatechars:50 }}</a>
+            <a href="{{ question.get_url }}" style="color: black;">{{ question.title }}</a>
           </p>
         </div>
 
@@ -47,7 +47,7 @@
 
       <div class="tags-container">
         <p>Tags:<span></span></p>
-        {% for tag in question.tags %}
+        {% for tag in question.tags.all %}
           <p class="tag"><a href="{% url 'tag-search' tag %}" style="color: #444444;"><b>{{ tag }}</b></a></p>
         {% endfor %}
       </div>
@@ -58,13 +58,13 @@
       <textarea class="answer-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
   </div>
 
-  <p style="font-size: 30px; font-weight: 800;">Answers: {{ answers|length }}</p>
+  <p style="font-size: 24px; font-weight: 800;">Answers: {{ answers|length }}</p>
 
   {% for answer in answers %}
     <div class="answer-container">
       <div class="meta-info-row">
         <p class="answer-date">{{ answer.creation_date }}</p>
-        <p class="answer-author" style="font-weight: 700;">{{ answer.author.username }}</p>
+        <p class="answer-author" style="font-weight: 700;">{{ answer.author }}</p>
       </div>
 
       <div class="answer-content-container">
