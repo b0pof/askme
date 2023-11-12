@@ -1,5 +1,4 @@
-from blog.models import Question, Answer
-from django.contrib.auth.models import User
+from blog.models import Question, Answer, Profile, Tag
 import random
 
 # Mocks
@@ -21,9 +20,10 @@ def make_question(amount: int) -> [Question]:
         q.author.username = random.choice(["Flynn", "Walter Hartwell White Jr.", "Walt Jr."]) 
         q.creation_date = "%02d.%02d.%04d" % (random.randint(1, 28), random.randint(1, 12), random.randint(2007, 2023))
 
-        q.tags = list()
+        tags = list()
         for _ in range(2):
-            q.tags.append(random.choice(POPULAR_TAGS))
+            tags.append(Tag(word=random.choice(POPULAR_TAGS)))
+        q.tags.set(tags)
 
         q.rating = round(random.randint(-20, 20))
         questions.append(q)
