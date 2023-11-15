@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block answers %}
+
+<div class="container" style="height: 100%;">
+  
+  {% include 'components/question_item.html' %}
+
+  <div class="text-input forms-inputs mb-4" style="height: 100px;">
+      <textarea class="answer-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
+  </div>
+
+  <p style="font-size: 24px; font-weight: 800;">Answers: {{ answers|length }}</p>
+
+  {% for answer in answers %}
+    {% include 'components/answer_item.html' %}
+  {% endfor %}
+
+  <div class="pagination">
+    {% if answers.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ questions.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in answers.paginator.page_range %}
+      {% if answers.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > answers.number|add:'-3' and num < answers.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if answers.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ questions.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ questions.paginator.num_pages }}">Last</a>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}
