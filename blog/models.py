@@ -1,17 +1,64 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 from typing import List
 
 
+class ProfileManager(models.Manager):
+    def get_top_users(self) -> List[str]:
+        users = []
+        
+        top_answers = Answer.objects.annotate(count=
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="L")
+            ) - 
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="D")
+            )
+        ).order_by("-count")
+        
+        top_questions = Question.objects.annotate(count=
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="L")
+            ) - 
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="D")
+            )
+        ).order_by("-count")
+
+        top_answers.union(top_questions)
+
+        top_users = top_answers.annotate(count=
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="L")
+            ) - 
+            models.Count(
+                'reactions',
+                filter=models.Q(reactions__reaction_type="D")
+            )
+        ).order_by("-count").values("author__user__username")[:5]
+
+        for value in top_users:
+            users.append(value["author__user__username"])
+        
+        return users
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, null=True)
     avatar = models.ImageField(null=True, blank=True, upload_to="media/")
     rating = models.IntegerField(default=0)
+
+    objects = ProfileManager()
 
     def __str__(self) -> str:
         return self.user.username
@@ -24,7 +71,7 @@ class TagManager(models.Manager):
         tag_objects = super().get_queryset(). \
             values('word'). \
             annotate(count=models.Count('question')). \
-            order_by('-count')[:13]
+            order_by('-count')[:10]
         
         for tag in tag_objects:
             tags.append(tag["word"])
@@ -38,6 +85,9 @@ class Tag(models.Model):
         return self.word
     
     objects = TagManager()
+
+    class Meta():
+        unique_together = [["word"]]
 
 
 class Reaction(models.Model):
@@ -130,4 +180,3 @@ class Answer(models.Model):
 
     def rating(self) -> int:
         return self.likes_count() - self.dislikes_count()
-
