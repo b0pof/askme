@@ -124,12 +124,10 @@ class Answer(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     creation_date = models.DateTimeField(default=timezone.now, editable=False)
     is_correct = models.BooleanField(default=False)
-    # reactions = models.ManyToOneRel(Reaction, related_name="answer_reaction")
 
     objects = AnswerManager()
 
     def likes_count(self) -> int:
-        # return self.reactions.filter(reaction_type="L").count()
         return models.Count(
             'questionreaction',
             filter=models.Q(answerreaction__reaction_type="L")
