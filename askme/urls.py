@@ -19,7 +19,7 @@ from django.urls import include, path
 import blog.views
 
 urlpatterns = [
-    path("__debug__/", include("debug_toolbar.urls")),
+    # path("__debug__/", include("debug_toolbar.urls")),
 
     path('admin/', admin.site.urls),
     path('', blog.views.new, name="main-view"),
