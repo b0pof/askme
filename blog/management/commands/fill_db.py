@@ -1,12 +1,12 @@
 from django.core.management import BaseCommand
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from blog.models import Question, Answer, Profile, Tag, Reaction
+from blog.models import Question, Answer, Profile, Tag, QuestionReaction, AnswerReaction
 from faker import Faker
 from random import randint, choice
 from django.utils import timezone
 import datetime
-# from pytz import UTC
+from random import sample
 
 fake = Faker()
 
@@ -71,11 +71,16 @@ class Command(BaseCommand):
 
         print("Creating Tags...")
 
-        tags = [
-            Tag(
-                word=fake.word()
-            ) for _ in range(tags_amount)
-        ]
+        tags = []
+
+        for _ in range(tags_amount):
+            tag_word = fake.word() + fake.word()
+
+            tags.append(
+                Tag(
+                    word=''.join(sample(tag_word, len(tag_word)))
+                )
+            )
 
         Tag.objects.bulk_create(tags)
 
@@ -88,7 +93,7 @@ class Command(BaseCommand):
         questions = []
 
         for i in range(questions_amount):
-            print('\rCompleted: {}%'.format(i * 100 / questions_amount), end='')
+            print('\rCompleted: {}%'.format(round(i * 100 / questions_amount, 1)), end='')
 
             questions.append(
                 Question(
@@ -108,7 +113,7 @@ class Command(BaseCommand):
         print("Linking tags...")
 
         for i in range(questions_amount):
-            print('\rCompleted: {}%'.format(i * 100 / questions_amount), end='')
+            print('\rCompleted: {}%'.format(round(i * 100 / questions_amount, 1)), end='')
 
             for _ in range(randint(1, 4)):
                 questions[i].tags.add(tags[randint(1, tags_amount - 1)])
@@ -119,25 +124,22 @@ class Command(BaseCommand):
 
         print("Creating Question Likes...")
 
-        model_type = ContentType.objects.get_for_model(questions[0])
-
         q_reactions = []
 
         for i in range(questions_amount):
             if i % 10:
-                print('\rCompleted: {}%'.format(i * 100 / questions_amount), end='')
+                print('\rCompleted: {}%'.format(round(i * 100 / questions_amount, 1)), end='')
 
             for _ in range(randint(3, 10)):
                 q_reactions.append(
-                    Reaction(
-                        content_type=model_type,
-                        object_id=questions[i].id,
+                    QuestionReaction(
+                        question=questions[i],
                         profile=profiles[randint(0, users_amount - 1)],
                         reaction_type = choice(["L", "L", "D"])
                     )
                 )
 
-        Reaction.objects.bulk_create(q_reactions)
+        QuestionReaction.objects.bulk_create(q_reactions)
 
         print("\rQuestion Likes created!")
 
@@ -149,7 +151,7 @@ class Command(BaseCommand):
 
         for i in range(answers_amount):
             if i % 100:
-                print('\rCompleted: {}%'.format(i * 100 / answers_amount), end='')
+                print('\rCompleted: {}%'.format(round(i * 100 / answers_amount, 1)), end='')
 
             answers.append(
                 Answer(
@@ -175,18 +177,17 @@ class Command(BaseCommand):
 
         for i in range(answers_amount):
             if i % 100 == 0:
-                print('\rCompleted: {}%'.format(i * 100 / answers_amount), end='')
+                print('\rCompleted: {}%'.format(round(i * 100 / answers_amount, 1)), end='')
 
             for _ in range(randint(1, 4)):
                 a_reactions.append(
-                    Reaction(
-                        content_type=model_type,
-                        object_id=answers[i].id,
+                    AnswerReaction(
+                        answer=answers[i],
                         profile=profiles[randint(0, users_amount - 1)],
                         reaction_type = choice(["L", "L", "L", "D", "D"])
                     )
                 )
         
-        Reaction.objects.bulk_create(a_reactions)
+        AnswerReaction.objects.bulk_create(a_reactions)
         
         print("\rAnswer likes created!")
