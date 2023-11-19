@@ -4,13 +4,20 @@ from django.template import loader
 from util.pagination.pagination import paginate
 from util.mock.mock import *
 from blog.models import Question, Answer, Profile, Tag
+from django.core.cache import cache
 
 
 def add_context(context: dict) -> None:
-    # context["tags"] = ["lol", "ask", "try"]
-    # context["members"] = ["user1", "user2", "user3"]
-    context["tags"] = Tag.objects.get_popular()
-    context["members"] = Profile.objects.get_top_users()
+    top_tags = cache.get('top_tags')
+    if top_tags == None:
+        top_tags = Tag.objects.get_popular()
+    
+    top_members = cache.get('top_users')
+    if top_members == None:
+        top_members = Profile.objects.get_top_users()
+    
+    context["tags"] = top_tags
+    context["members"] = top_members
 
 
 def new(request: HttpRequest) -> HttpResponse:
@@ -109,8 +116,6 @@ def question(request: HttpRequest, id: int) -> HttpResponse:
         "question": question,
         "answers": pages,
         "title": f"Question {id}",
-        "tags": Tag.objects.get_popular(),
-        "members": MEMBERS,
         "name": "Saul Goodman",
         "loggedIn": 1
     }
@@ -130,8 +135,6 @@ def login(request: HttpRequest) -> HttpResponse:
     return HttpResponse(
         template.render(
             {
-                "tags": Tag.objects.get_popular(),
-                "members": MEMBERS,
                 "loggedIn": 0
             },
             request
@@ -145,8 +148,6 @@ def signup(request: HttpRequest) -> HttpResponse:
     return HttpResponse(
         template.render(
             {
-                "tags": Tag.objects.get_popular(),
-                "members": MEMBERS,
                 "loggedIn": 0
             },
             request
