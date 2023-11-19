@@ -23,7 +23,7 @@ class ProfileManager(models.Manager):
 
         for value in top_users:
             users.append(value["author__user__username"])
-        
+                
         return users
 
 
@@ -128,16 +128,10 @@ class Answer(models.Model):
     objects = AnswerManager()
 
     def likes_count(self) -> int:
-        return models.Count(
-            'questionreaction',
-            filter=models.Q(answerreaction__reaction_type="L")
-        )
+        return AnswerReaction.objects.filter(reaction_type="L", answer=self.id).count()
 
     def dislikes_count(self) -> int:
-        return models.Count(
-            'questionreaction',
-            filter=models.Q(answerreaction__reaction_type="D")
-        )
+        return AnswerReaction.objects.filter(reaction_type="D", answer=self.id).count()
 
     def rating(self) -> int:
         return self.likes_count() - self.dislikes_count()
