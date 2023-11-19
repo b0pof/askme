@@ -1,5 +1,6 @@
-# Cache dir
+# Cache
 sidebar_cache
+cache_log.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
