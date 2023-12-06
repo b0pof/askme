@@ -7,30 +7,20 @@
       <div class="card px-3 py-3" style="padding-top: 0px; width: 100%; height: 100%;" id="form1">
         <div class="form-data" style="width: 100%;">
 
-          <form method="POST">
+          <form method="POST">{% csrf_token %}
             <div style="margin-bottom: 30px;">
-                <p class="settings-title" style="font-size: 25px;"><a style="font-size: 30px; font-weight: 800;">Settings:&ensp;</a>@{{ username }}</p>
+                <p class="settings-title" style="font-size: 25px;"><a style="font-size: 30px; font-weight: 800;">Settings:&ensp;</a>@{{ user.get_username }}</p>
             </div>
 
-            <div class="forms-inputs mb-4">
-                <span>Login</span>
-                <input autocomplete="off" type="text">
-            </div>
-
-            <div class="forms-inputs mb-4">
-                <span>Email</span>
-                <input autocomplete="off" type="email" id="email" name="email">
-            </div>
-
-            <div class="forms-inputs mb-4">
-                <span>Nickname</span>
-                <input autocomplete="off" type="text" id="nickname" name="nickname" maxlength="25">
-            </div>
-
-            <div class="forms-inputs mb-4">
-              <span>Upload avatar</span>
-              <input class="form-control" type="file" id="formFile" enctype="multipart/form-data">
-            </div>
+            {% for field in settings_form %}
+              <div class="forms-inputs mb-4">
+                <span>{{ field.label }}</span>
+                {{ field }}
+                {% for error in field.errors %}
+                  <p class="input-error">&nbsp;&nbsp;&nbsp;{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endfor %}
 
             <div class="mb-3"> <input type="submit" value="Save" class="btn btn-dark w-100"></input> </div>
           </post>

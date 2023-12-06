@@ -13,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link href="../static/css/main.css" rel="stylesheet">
+  <link href="../static/png/blue_icon.png" rel="icon">
 </head>
 
 <body>
@@ -41,21 +42,23 @@
                   <p>Log In</p>
               </div>
 
-              <form method="POST">
-                <div class="forms-inputs mb-4">
-                    <span>Email</span>
-                    <input type="email" id="email" name="email" required>
-                </div>
-    
-                <div class="forms-inputs mb-4">
-                    <span>Password</span>
-                    <input type="password" id="password" name="password" minlength="8" required>
-                </div>
+              <form action="/login" method="POST">{% csrf_token %}  
+                
+                {% for field in login_form %}
+                  <div class="forms-inputs mb-4">
+                    <span>{{ field.label }}</span>
+                    {{ field }}
+                    {% for error in field.errors %}
+                      <p class="input-error">&nbsp;&nbsp;&nbsp;{{ error }}</p>
+                    {% endfor %}
+                  </div>
+                {% endfor %}
 
                 <div class="ask-for-register" style="display: flex;">
                   <p>No account?</p>
                   <a class="signup-link" href="/signup" style="margin-left: 8px; color: #234E70;">Sign up</a>
                 </div>
+
                 <div class="mb-3"> <input class="btn btn-dark w-100" type="submit" value="Login"></input> </div>
               </form>
             

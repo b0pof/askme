@@ -12,21 +12,17 @@
       <div class="card px-3 py-3">
         <div class="form-data" style="width: 100%;">
 
-          <form method="POST">
-            <div class="title-input forms-inputs mb-4">
-                <span>Title</span>
-                <input autocomplete="off" type="text" placeholder="In a nutshell" minlength="3" maxlength="50" required>
-            </div>
+          <form method="POST"> {% csrf_token %}
 
-            <div class="text-input forms-inputs mb-4" style="height: 200px;">
-                <span>Text</span>
-                <textarea autocomplete="off" type="text" style="height: 100%;" placeholder="Describe in details" maxlength="490"></textarea>
-            </div>
-
-            <div class="tags-input forms-inputs mb-4">
-              <span>Tags</span>
-              <input autocomplete="off" type="text" placeholder="List tags by comma" maxlength="50">
-            </div>
+            {% for field in ask_form %}
+              <div class="forms-inputs mb-4">
+                <span>{{ field.label }}</span>
+                {{ field }}
+                {% for error in field.errors %}
+                  <p class="input-error">&nbsp;&nbsp;&nbsp;{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endfor %}
 
             <div class="mb-3"><input value="Ask!" type="submit" class="btn btn-dark w-100"></input></div>
           </form>

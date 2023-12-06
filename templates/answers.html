@@ -7,8 +7,10 @@
   {% include 'components/question_item.html' %}
 
   <div class="text-input forms-inputs mb-4" style="height: 100px;">
-      <textarea class="answer-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
+      <textarea class="answer-input textarea-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
   </div>
+
+  <div class="mb-3" style="width: 200px;"><input value="Answer!" type="submit" class="btn btn-dark w-100"></input></div>
 
   <p style="font-size: 24px; font-weight: 800;">Answers: {{ answers|length }}</p>
 
