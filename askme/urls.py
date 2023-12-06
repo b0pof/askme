@@ -29,5 +29,6 @@ urlpatterns = [
     path('login', blog.views.login, name="login-page"),
     path('signup', blog.views.signup, name="signup-page"),
     path('ask', blog.views.ask, name="ask-question"),
-    path('settings', blog.views.settings, name="user-settings")
+    path('settings', blog.views.settings, name="user-settings"),
+    path('logout', blog.views.logout, name="logout")
 ]
