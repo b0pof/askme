@@ -10,7 +10,7 @@ class ProfileManager(models.Manager):
     def get_top_users(self) -> List[str]:
         users = []
         
-        top_users = Question.objects.annotate(count=
+        top_users = Question.objects.annotate(count=            # during the last week
             models.Count(
                 'questionreaction',
                 filter=models.Q(questionreaction__reaction_type="L")
@@ -39,7 +39,7 @@ class Profile(models.Model):
 
 
 class TagManager(models.Manager):
-    def get_popular(self) -> List[str]:
+    def get_popular(self) -> List[str]:         # During the last 3 months
         tags = []
 
         tag_objects = self. \
