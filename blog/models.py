@@ -29,7 +29,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, null=True)
-    avatar = models.ImageField(null=True, blank=True, upload_to="media/")
+    avatar = models.ImageField(null=True, blank=True, default="anon.jpg", upload_to="avatar/%Y/%m/%d")
     rating = models.IntegerField(default=0)
 
     objects = ProfileManager()
@@ -80,6 +80,41 @@ class QuestionManager(models.Manager):
     def get_by_tag(self, tag) -> QuerySet:
         return super().get_queryset().filter(tags__word=tag)
 
+    def add_like(self, profile, question_id) -> int:
+        amount = 0
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return 0
+        
+        amount = question.rating()
+        if QuestionReaction.objects.filter(question_id=question_id, reaction_type="L", profile_id=profile).exists():
+            return amount
+        elif QuestionReaction.objects.filter(question_id=question_id, reaction_type="D", profile_id=profile).exists():
+            QuestionReaction.objects.filter(question_id=question_id, profile_id=profile).delete()
+            return amount + 1
+        else:
+            QuestionReaction.objects.create(question_id=question_id, reaction_type="L", profile_id=profile)
+            return amount + 1
+
+    
+    def add_dislike(self, profile, question_id) -> int:
+        amount = 0
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return 0
+        
+        amount = question.rating()
+        if QuestionReaction.objects.filter(question_id=question_id, reaction_type="D", profile_id=profile).exists():
+            return amount
+        elif QuestionReaction.objects.filter(question_id=question_id, reaction_type="L", profile_id=profile).exists():
+            QuestionReaction.objects.filter(question_id=question_id, profile_id=profile).delete()
+            return amount - 1;
+        else:
+            QuestionReaction.objects.create(question_id=question_id, reaction_type="D", profile_id=profile)
+            return amount - 1
+
 
 class Question(models.Model):
     title = models.CharField(blank=False, max_length=100)
@@ -116,6 +151,69 @@ class AnswerManager(models.Manager):
                     filter=models.Q(answerreaction__reaction_type="D")
                 ))
             ).order_by('-r_count')
+
+    def add_like(self, profile, answer_id) -> int:
+        amount = 0
+        try:
+            answer = Answer.objects.get(id=answer_id)
+        except Answer.DoesNotExist:
+            return 0
+        
+        amount = answer.rating()
+        print("amount =", amount)
+        if AnswerReaction.objects.filter(answer_id=answer_id, reaction_type="L", profile_id=profile).exists():
+            print("LIKE EXISTS => return", amount)
+            return amount
+        elif AnswerReaction.objects.filter(answer_id=answer_id, reaction_type="D", profile_id=profile).exists():
+            AnswerReaction.objects.filter(answer_id=answer_id, profile_id=profile).delete()
+            print("DISLIKE REMOVED => return", amount + 1)
+            return amount + 1
+        else:
+            AnswerReaction.objects.create(answer_id=answer_id, reaction_type="L", profile_id=profile)
+            print("LIKE CREATED => return", amount + 1)
+            return amount + 1
+    
+
+    def add_dislike(self, profile, answer_id) -> int:
+        amount = 0
+        try:
+            answer = Answer.objects.get(id=answer_id)
+        except Answer.DoesNotExist:
+            return 0
+        
+        amount = answer.rating()
+        print("amount =", amount)
+        if AnswerReaction.objects.filter(answer_id=answer_id, reaction_type="D", profile_id=profile).exists():
+            print("DISLIKE EXISTS => return", amount)
+            return amount
+        elif AnswerReaction.objects.filter(answer_id=answer_id, reaction_type="L", profile_id=profile).exists():
+            AnswerReaction.objects.filter(answer_id=answer_id, profile_id=profile).delete()
+            print("LIKE REMOVED => return", amount)
+            return amount - 1
+        else:
+            AnswerReaction.objects.create(answer_id=answer_id, reaction_type="D", profile_id=profile)
+            print("DISLIKE CREATED => return", amount)
+            return amount - 1
+
+
+    def toggle_correct(self, profile, question_id, answer_id) -> bool:
+        answer = None
+        try:
+            answer = Answer.objects.get(id=answer_id)
+        except Answer.DoesNotExist:
+            return False
+
+        try:
+            question = Question.objects.get(id=question_id)
+        except Question.DoesNotExist:
+            return False
+        
+        if question.author.id == profile:
+            current_status = answer.is_correct
+            Answer.objects.filter(id=answer_id).update(is_correct=(not current_status))
+            return not current_status
+        
+        return answer.is_correct
 
 
 class Answer(models.Model):
