@@ -42,7 +42,7 @@
                   <p>Log In</p>
               </div>
 
-              <form action="/login" method="POST">{% csrf_token %}  
+              <form action="{% url 'login-page' %}" method="POST">{% csrf_token %}  
                 
                 {% for field in login_form %}
                   <div class="forms-inputs mb-4">

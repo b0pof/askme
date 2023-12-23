@@ -19,6 +19,7 @@
 </head>
 
 <body>
+  {% csrf_token %}
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
@@ -44,7 +45,11 @@
         </ul>
         <div class="user-block">
             {% if user.is_authenticated %}
-              <img src="../static/png/user_avatar.jpg" class="avatar" alt="Avatar">
+              {% if request.user.profile.avatar %}
+                <img src="{{ request.user.profile.avatar.url }}" class="avatar" alt="Avatar">
+              {% else %}
+                <img src="../static/png/anon.jpg" class="avatar" alt="Avatar">
+              {% endif %}
               <div class="side-block">
                 <div class="name-block">
                   <p class="name">{{ user.get_username }}</p>
@@ -146,13 +151,6 @@
       </div>
     </div>
   </footer>
+  <script src="{% static '/js/main.js' %}"></script>
 </body>
-  <script>
-    function increase() {
-      document.getElementById("rating").stepUp(1);
-    }
-    function decrease() {
-      document.getElementById("rating").stepDown(1);
-    }
-  </script>
 </html>

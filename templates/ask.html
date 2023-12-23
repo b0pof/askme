@@ -12,7 +12,7 @@
       <div class="card px-3 py-3">
         <div class="form-data" style="width: 100%;">
 
-          <form method="POST"> {% csrf_token %}
+          <form method="POST" action="{% url 'ask-question' %}"> {% csrf_token %}
 
             {% for field in ask_form %}
               <div class="forms-inputs mb-4">

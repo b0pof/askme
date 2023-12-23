@@ -6,13 +6,23 @@
   
   {% include 'components/question_item.html' %}
 
-  <div class="text-input forms-inputs mb-4" style="height: 100px;">
-      <textarea class="answer-input textarea-input" autocomplete="off" type="text" style="height: 100%; background-color: white; border: none;" placeholder="Enter your answer here..." maxlength="490"></textarea>
-  </div>
+  <form action="{% url 'question-info' question.id %}" method="POST"> {% csrf_token %}
 
-  <div class="mb-3" style="width: 200px;"><input value="Answer!" type="submit" class="btn btn-dark w-100"></input></div>
+    {% for field in answer_form %}
+      <div class="text-input forms-inputs mb-4">
+        <!-- <span>{{ field.label }}</span> -->
+        {{ field }}
+        {% for error in field.errors %}
+          <p class="input-error">&nbsp;&nbsp;&nbsp;{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
 
-  <p style="font-size: 24px; font-weight: 800;">Answers: {{ answers|length }}</p>
+    <div class="mb-3" style="width: 200px;"><input value="Answer!" type="submit" class="btn btn-dark w-100"></input></div>
+  
+  </form>
+
+  <p style="font-size: 24px; font-weight: 800;">Answers: {{ amount }}</p>
 
   {% for answer in answers %}
     {% include 'components/answer_item.html' %}
@@ -21,7 +31,7 @@
   <div class="pagination">
     {% if answers.has_previous %}
       <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-      <a class="btn btn-outline-info mb-4" href="?page={{ questions.previous_page_number }}">Previous</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ answers.previous_page_number }}">Previous</a>
     {% endif %}
 
     {% for num in answers.paginator.page_range %}
@@ -33,8 +43,8 @@
     {% endfor %}
 
     {% if answers.has_next %}
-      <a class="btn btn-outline-info mb-4" href="?page={{ questions.next_page_number }}">Next</a>
-      <a class="btn btn-outline-info mb-4" href="?page={{ questions.paginator.num_pages }}">Last</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ answers.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ answers.paginator.num_pages }}">Last</a>
     {% endif %}
   </div>
 

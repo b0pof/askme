@@ -42,7 +42,7 @@
                   <p>Registration</p>
               </div>
               
-              <form action="/signup" method="POST">{% csrf_token %}
+              <form action="{% url 'signup-page' %}" method="POST">{% csrf_token %}
 
                 {% for field in signup_form %}
                   <div class="forms-inputs mb-4">

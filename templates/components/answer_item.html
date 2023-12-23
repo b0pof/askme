@@ -18,18 +18,18 @@
 
     </div>
 
-    <div class="bottom-row answer-bottom-row">
-      <button class="rate-button" id="like">
+    <div class="bottom-row answer-bottom-row answer-like-section">
+      <button class="rate-button" data-id="{{ answer.id }}">
         <img src="../static/png/up.png" height="100%"; width="100%">
       </button>
       {% if answer.rating < 0 %}
-        <p class="rating-value" style="color: red;" id="rating">{{ answer.rating }}</p>
+        <p class="rating-value" style="color: red;" data-id="{{ answer.id }}" data-questionid="{{ question.id }}" id="rating">{{ answer.rating }}</p>
       {% elif answer.rating == 0 %}
-        <p class="rating-value" style="color: grey;" id="rating">{{ answer.rating }}</p>
+        <p class="rating-value" style="color: grey;" data-id="{{ answer.id }}" data-questionid="{{ question.id }}" id="rating">{{ answer.rating }}</p>
       {% elif answer.rating > 0 %}
-        <p class="rating-value" style="color: green;" id="rating">{{ answer.rating }}</p>
+        <p class="rating-value" style="color: green;" data-id="{{ answer.id }}" data-questionid="{{ question.id }}" id="rating">{{ answer.rating }}</p>
       {% endif %}
-      <button class="rate-button" id="dislike">
+      <button class="rate-button" data-id="{{ answer.id }}">
         <img src="../static/png/down.png" height="100%"; width="100%">
       </button>
 
