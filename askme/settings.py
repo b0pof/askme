@@ -144,6 +144,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = 'static/'
 
 PATH_TO_YOUR_STATIC_FOLDER = 'static/'
 
